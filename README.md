@@ -49,6 +49,9 @@ Variable Name | Value | Description | Default
 **`HIVEMQ_LICENSE`** | `STRING` | Your license file cntent in one unique line separated by \| Automatically the system will generate a `license.lic` file with the base64 content from this variable. | 
 **`HIVEMQ_REST_API_ENABLED`** | `boolean` | Enables to change the config.xml file with the `rest-api` tag. | `false`
 **`HIVEMQ_REST_API_CONFIGURATION`** | `STRING (XML)` | REST API tag XML definition on the config.xml file. | ```<rest-api><enabled>true</enabled><listeners><http><port>8888</port><bind-address>0.0.0.0</bind-address></http></listeners></rest-api>```
+**`HIVEMQ_INFUXDB_ADDRESS`** | `STRING` | URL of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_ADDRESS```
+**`HIVEMQ_INFUXDB_PORT`** | `STRING` | Port of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_PORT```
+**`HIVEMQ_INFUXDB_DATABASE`** | `STRING` | Name of the database of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_DATABASE```
 
 
 ## Log in

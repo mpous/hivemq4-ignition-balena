@@ -89,7 +89,6 @@ if [[ -n "${HIVEMQ_HOST_PASSWORD}" ]]; then
 fi
 
 
-
 # TLS enabled
 #
 # <tls>
@@ -126,5 +125,26 @@ if [[ -n "${HIVEMQ_TOPICS_CONFIGURATION}" ]]; then
   HIVEMQ_TOPICS_CONFIGURATION="${HIVEMQ_TOPICS_CONFIGURATION//$'\n'/}"
   sed -i "s|<!-- TOPICS -->|${HIVEMQ_TOPICS_CONFIGURATION}|" /opt/hivemq/extensions/hivemq-bridge-extension/bridge-configuration.xml
 fi
+
+
+# INFLUXDB EXTENSION
+echo "######### Check InfluxDB Extension #########"
+
+if [[ -n "${HIVEMQ_INFLUXDB_ADDRESS}" ]]; then
+  echo "Enabling InfluxDB Extension Address from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_INFLUXDB_ADDRESS|${HIVEMQ_INFLUXDB_ADDRESS}|" /opt/hivemq/extensions/hivemq-influxdb-extension/influxdb.properties
+fi
+
+if [[ -n "${HIVEMQ_INFLUXDB_PORT}" ]]; then
+  echo "Enabling InfluxDB Extension Port from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_INFLUXDB_PORT|${HIVEMQ_INFLUXDB_PORT}|" /opt/hivemq/extensions/hivemq-influxdb-extension/influxdb.properties
+fi
+
+if [[ -n "${HIVEMQ_INFLUXDB_DATABASE}" ]]; then
+  echo "Enabling InfluxDB Extension Database from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_INFLUXDB_DATABASE|${HIVEMQ_INFLUXDB_DATABASE}|" /opt/hivemq/extensions/hivemq-influxdb-extension/influxdb.properties
+fi
+
+
 
 echo >&3 "setting bind address to ${HIVEMQ_BIND_ADDRESS}"

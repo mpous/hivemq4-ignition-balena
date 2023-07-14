@@ -46,6 +46,8 @@ RUN set -x \
 COPY --from=unpack /opt/hivemq-${HIVEMQ_VERSION} /opt/hivemq-${HIVEMQ_VERSION}
 COPY config.xml /opt/hivemq-${HIVEMQ_VERSION}/conf
 COPY bridge-configuration.xml /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-bridge-extension
+RUN mkdir /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
+COPY influxdb.properties /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
 COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
 COPY entrypoints.d/* /docker-entrypoint.d/
 
@@ -57,6 +59,8 @@ RUN ln -s /opt/hivemq-${HIVEMQ_VERSION} /opt/hivemq \
     && chmod 770 /opt/hivemq-${HIVEMQ_VERSION}/conf/config.xml \
     && chgrp 0 /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-bridge-extension/bridge-configuration.xml \
     && chmod 770 /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-bridge-extension/bridge-configuration.xml \
+    && chgrp 0 /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension/influxdb.properties \
+    && chmod 770 /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension/influxdb.properties \
     && chgrp 0 /opt/hivemq \
     && chmod 770 /opt/hivemq \
     && chmod +x /opt/hivemq/bin/run.sh /opt/docker-entrypoint.sh
