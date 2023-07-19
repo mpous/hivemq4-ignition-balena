@@ -61,9 +61,9 @@ The services are exposed in different ports. On the default configuration they u
 |Service|Port|Username|Password|
 |:--|---|---|---|
 |HiveMQ|8080 (http)|admin|hivemq|
-|Ignition|9088 (http)| | |
+|Ignition|9088 (http)|balena|balena|
 |Grafana|3000 (http)|admin|admin|
-|InfluxDB|8086 | | |
+|InfluxDB|8086 |balena|balenabalena|
 
 
 ## Attribution
