@@ -46,10 +46,16 @@ RUN set -x \
 COPY --from=unpack /opt/hivemq-${HIVEMQ_VERSION} /opt/hivemq-${HIVEMQ_VERSION}
 COPY config.xml /opt/hivemq-${HIVEMQ_VERSION}/conf
 COPY bridge-configuration.xml /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-bridge-extension
-RUN mkdir /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
-COPY influxdb.properties /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
 COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
 COPY entrypoints.d/* /docker-entrypoint.d/
+
+# https://github.com/hivemq/hivemq-influxdb-extension
+RUN mkdir /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
+COPY influxdb.properties /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-influxdb-extension
+
+# https://github.com/hivemq/hivemq-sparkplug-influxdb-extension
+RUN mkdir /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-sparkplug-extension
+COPY sparkplug.properties /opt/hivemq-${HIVEMQ_VERSION}/extensions/hivemq-sparkplug-extension
 
 
 RUN ln -s /opt/hivemq-${HIVEMQ_VERSION} /opt/hivemq \

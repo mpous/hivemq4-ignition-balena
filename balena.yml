@@ -26,6 +26,13 @@ data:
     - HIVEMQ_INFLUXDB_ADDRESS: "localhost"
     - HIVEMQ_INFLUXDB_PORT: "8886"
     - HIVEMQ_INFLUXDB_DATABASE: "balena"
+    - HIVEMQ_SPARKPLUG_MODE: "cloud"
+    - HIVEMQ_SPARKPLUG_ADDRESS: "localhost"
+    - HIVEMQ_SPARKPLUG_PORT: "8886"
+    - HIVEMQ_SPARKPLUG_DATABASE: "balena"
+    - HIVEMQ_SPARKPLUG_TOKEN: "token"
+    - HIVEMQ_SPARKPLUG_BUCKET: "hivemq"
+    - HIVEMQ_SPARKPLUG_ORGANIZATION: "hivemq"
   defaultDeviceType: genericx86-64-ext
   supportedDeviceTypes:
     - genericx86-64-ext

@@ -26,15 +26,14 @@ services:
       HIVEMQ_TLS_ENABLED: false
       HIVEMQ_TOPICS_CONFIGURATION: "<filter>#</filter>"
       HIVEMQ_CONNECTION_ENABLED: false
-    
   
   
   # ------------------------------------------------------------------------------------
   # Influxdb
   # ------------------------------------------------------------------------------------
   influxdb:
-    image: influxdb:1.7.11
-    #image: influxdb:latest
+    # image: influxdb:1.7.11
+    image: influxdb:latest
     container_name: influxdb
     restart: unless-stopped
     ports:
@@ -42,6 +41,14 @@ services:
     volumes:
         - influxdb-data:/var/lib/influxdb
         - influxdb-etc:/etc/influxdb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup 
+      - DOCKER_INFLUXDB_INIT_USERNAME=balena
+      - DOCKER_INFLUXDB_INIT_PASSWORD=balenabalena
+      - DOCKER_INFLUXDB_INIT_ORG=balena 
+      - DOCKER_INFLUXDB_INIT_BUCKET=balena
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=balena
+      - DOCKER_INFLUXDB_INIT_RETENTION=1d   
 
 
   # ------------------------------------------------------------------------------------
@@ -56,20 +63,30 @@ services:
     volumes:
         - "grafana-data:/data"
   
+
   # ------------------------------------------------------------------------------------
   # Ignition Edge Server software
   # ------------------------------------------------------------------------------------
   ignition:
-    image: inductiveautomation/ignition:latest
+    #image: inductiveautomation/ignition:latest
+    build: ./ignition
     ports:
       - "9088:8088"
       - "8043:8043"
       - "8060:8060"
     volumes:
-      - "ignition-data:/var/lib/ignition/data"
+      - ignition-data:/usr/local/bin/ignition/data
     cap_add:
       - SYS_RAWIO
+    environment:
+      - ACCEPT_IGNITION_EULA=Y
+      - GATEWAY_ADMIN_USERNAME=admin
+      - GATEWAY_ADMIN_PASSWORD=balena
+      - IGNITION_EDITION=edge
+    command: >
+      -n Ignition-supp-66195
     privileged: true
+  
   
 volumes:
   hivemq_data:

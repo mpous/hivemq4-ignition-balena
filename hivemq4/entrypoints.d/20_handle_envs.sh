@@ -145,6 +145,44 @@ if [[ -n "${HIVEMQ_INFLUXDB_DATABASE}" ]]; then
   sed -i "s|HIVEMQ_INFLUXDB_DATABASE|${HIVEMQ_INFLUXDB_DATABASE}|" /opt/hivemq/extensions/hivemq-influxdb-extension/influxdb.properties
 fi
 
+# INFLUXDB SPARKPLUG EXTENSION
+# https://github.com/hivemq/hivemq-sparkplug-influxdb-extension
+echo "######### Check Influx Sparkplug Extension #########"
+
+if [[ -n "${HIVEMQ_SPARKPLUG_MODE}" ]]; then
+  echo "Enabling SPARKPLUG Extension Mode from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_MODE|${HIVEMQ_SPARKPLUG_MODE}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_ADDRESS}" ]]; then
+  echo "Enabling SPARKPLUG Extension Address from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_ADDRESS|${HIVEMQ_SPARKPLUG_ADDRESS}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_PORT}" ]]; then
+  echo "Enabling SPARKPLUG Extension Port from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_PORT|${HIVEMQ_SPARKPLUG_PORT}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_DATABASE}" ]]; then
+  echo "Enabling SPARKPLUG Extension Database from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_DATABASE|${HIVEMQ_SPARKPLUG_DATABASE}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_TOKEN}" ]]; then
+  echo "Enabling SPARKPLUG Extension TOKEN from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_TOKEN|${HIVEMQ_SPARKPLUG_TOKEN}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_BUCKET}" ]]; then
+  echo "Enabling SPARKPLUG Extension bucket from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_BUCKET|${HIVEMQ_SPARKPLUG_BUCKET}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
+
+if [[ -n "${HIVEMQ_SPARKPLUG_ORGANIZATION}" ]]; then
+  echo "Enabling SPARKPLUG Extension ORG from balenaCloud Device Variables."
+  sed -i "s|HIVEMQ_SPARKPLUG_ORGANIZATION|${HIVEMQ_SPARKPLUG_ORGANIZATION}|" /opt/hivemq/extensions/hivemq-sparkplug-extension/sparkplug.properties
+fi
 
 
 echo >&3 "setting bind address to ${HIVEMQ_BIND_ADDRESS}"
