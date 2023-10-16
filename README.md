@@ -1,12 +1,12 @@
 # Industrial IoT Gateway using Ignition Edge with HiveMQ and balena
 
-This is a reference architecture to run on your IIoT Edge Gateway with HiveMQ MQTT broker and Ignition Edge on a balena device.
+This is an IIoT reference architecture to run on your IIoT Edge Gateway with HiveMQ MQTT broker, Influx, Grafana and Ignition Edge on a balena device.
 
 
 ![](/assets/balena-ignition-hivemq.png)
 
 
-The example application is reading from Modbus and OPC UA sensors using a variation of the MING stack (MQTT, InfluxDB, Ignition Edge and Grafana) to use the advantages of the Edge Computing to digitalize a factory. In this case, we are using Ignition Edge, HiveMQ and balena to add a UNS (Unified Name Space) for data modeling and MQTT Sparkplug B to format the data being sent over MQTT to Ignition in the cloud through HiveMQ cloud instance.
+The example application is reading from Modbus and OPC UA sensors using a variation of the MING stack (MQTT HiveMQ, InfluxDB, Ignition Edge and Grafana) to use the advantages of the Edge Computing to digitalize a factory. In this case, we are using Inductive Automation Ignition Edge, HiveMQ and balena to add a Unified Name Space (UNS) for data modeling. We are going to use MQTT Sparkplug B to format the data being sent over MQTT to Ignition in the cloud through HiveMQ Cloud Enterprise instance.
 
 
 ## Disclaimer
@@ -20,13 +20,24 @@ We strongly recommend you to have some coding and networking knowledge. Do not h
 
 Running this project is as simple as deploying it to a balenaCloud application. You can do it in just one click by using the button below:
 
-[![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/hivemq4-ignition-balena)
+[![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena)
 
 Follow instructions, click Add a Device and flash an SD card with that OS image dowloaded from balenaCloud. Enjoy the magic 🌟Over-The-Air🌟!
 
 ## Configure Ignition Edge
 
+![balenaCloud-ignition-hiveMQ-influx-grafana](https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/b9015ebc-8e15-4913-ae96-b520d4cf1280)
+
+Once the application is successfully deployed on your balenaCloud fleet, you should be able to see your devices running the services based on the MING stack philosophy. The services for this application are:
+
+* Ignition
+* HiveMQ4 as MQTT broker.
+* InfluxDB as local time-series database.
+* Grafana as a local data visualization tool.
+
 Access to the Ignition UI using your local ip address with the `9088` port and install Ignition Edge. Create a username and password for Ignition and once the Ignition Edge is successfully installed, access to the Ignition Edge.
+
+<img width="795" alt="Installing Ignition Edge on balena" src="https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/001795ec-6540-4e4e-aa56-23b9130e3cd6">
 
 To receive the data from the edge IIoT gateway with HiveMQ and balena you will need to install the MQTT module packages on Ignition Edge made by Cirrus Link. For this project we will only need to install the `MQTT engine` and the `MQTT Transmission` modules. Download the [MQTT Cirrus Link modules](https://inductiveautomation.com/downloads/third-party-modules/8.1.27) for Ignition here.
 
@@ -64,6 +75,9 @@ The services are exposed in different ports. On the default configuration they u
 |Ignition|9088 (http)|balena|balena|
 |Grafana|3000 (http)|admin|admin|
 |InfluxDB|8086 (http) |balena|balenabalena|
+
+
+<img width="1187" alt="balena-hiveMQ-influxdb-grafana-architecture" src="https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/511f66b7-1df2-47c6-986c-47e5ef5d2ff5">
 
 
 ## Attribution
