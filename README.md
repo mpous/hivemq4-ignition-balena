@@ -27,6 +27,18 @@ Follow instructions, click Add a Device and flash an SD card with that OS image 
 ![balenaCloud-ignition-hiveMQ-influx-grafana](https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/b9015ebc-8e15-4913-ae96-b520d4cf1280)
 
 
+## Log in to the services
+
+The services are exposed in different ports. On the default configuration they use the default port and credentials to access them. Check the documentation for each of them to know how to change them using variables.
+
+|Service|Port|Username|Password|
+|:--|---|---|---|
+|HiveMQ|8080 (http)|admin|hivemq|
+|Ignition|9088 (http)|balena|balena|
+|Grafana|3000 (http)|admin|admin|
+|InfluxDB|8086 (http) |balena|balenabalena|
+
+
 ## Configure Ignition Edge
 
 Once the application is successfully deployed on your balenaCloud fleet, you should be able to see your devices running the services based on the MING stack philosophy. The services for this application are:
@@ -64,24 +76,24 @@ As we are using Sparkplug B with MQTT, through Ignition, we will install the [Hi
 
 Variable Name | Value | Description | Default
 ------------ | ------------- | ------------- | -------------
-`DOCKER_INFLUXDB_INIT_MODE` | `string` | Value is `setup` or `cloud` | `setup`
-`DOCKER_INFLUXDB_INIT_BUCKET` | `string` | Bucket's name | `balena`
-`DOCKER_INFLUXDB_INIT_ORG` | `string` | Organization name | `balena`
-`DOCKER_INFLUXDB_INIT_USERNAME` | `string` |  InfluxDB UI username | `balena`
-`DOCKER_INFLUXDB_INIT_PASSWORD` | `string` |  InfluxDB UI passowrd | `balenabalena`
-`DOCKER_INFLUXDB_INIT_ADMIN_TOKEN` | `string` | Token to interact with the Influx via API. It needs to be the same as the variable `HIVEMQ_SPARKPLUG_TOKEN`. | `PB0Pjh4_iou_uNkww4unb-WkGQ-tTe3KoWbUsb4O9rlxOhuj3kgkhD7tH1jXZxzleNob8WzONGbh0tM1SjHQWQ==`
+**DOCKER_INFLUXDB_INIT_MODE** | `string` | Value is `setup` or `cloud` | `setup`
+**DOCKER_INFLUXDB_INIT_BUCKET** | `string` | Bucket's name | `balena`
+**DOCKER_INFLUXDB_INIT_ORG** | `string` | Organization name | `balena`
+**DOCKER_INFLUXDB_INIT_USERNAME** | `string` |  InfluxDB UI username | `balena`
+**DOCKER_INFLUXDB_INIT_PASSWORD** | `string` |  InfluxDB UI passowrd | `balenabalena`
+**DOCKER_INFLUXDB_INIT_ADMIN_TOKEN** | `string` | Token to interact with the Influx via API. It needs to be the same as the variable `HIVEMQ_SPARKPLUG_TOKEN`. | `PB0Pjh4_iou_uNkww4unb-WkGQ-tTe3KoWbUsb4O9rlxOhuj3kgkhD7tH1jXZxzleNob8WzONGbh0tM1SjHQWQ==`
 
 These variables will set up the HiveMQ Sparkplug extension that will send the data through InfluxDB, as previously set up.
 
 Variable Name | Value | Description | Default
 ------------ | ------------- | ------------- | -------------
-`HIVEMQ_SPARKPLUG_ADDRESS` | `string` | Name of the service running locally on balena or address. | `influx`
-`HIVEMQ_SPARKPLUG_BUCKET` | `string` | Bucket's name | `balena`
-`HIVEMQ_SPARKPLUG_DATABASE` | `string` | Database's name | `balena`
-`HIVEMQ_SPARKPLUG_MODE` | `string` | InfluxDB mode | `setup`
-`HIVEMQ_SPARKPLUG_ORGANIZATION` | `string` | Organization's name | `balena`
-`HIVEMQ_SPARKPLUG_PORT` | `string` |  InfluxDB port | `8086`
-`HIVEMQ_SPARKPLUG_TOKEN` | `string` | Token to interact with the Influx via API. It needs to be the same as the variable `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN` | `PB0Pjh4_iou_uNkww4unb-WkGQ-tTe3KoWbUsb4O9rlxOhuj3kgkhD7tH1jXZxzleNob8WzONGbh0tM1SjHQWQ==`
+**HIVEMQ_SPARKPLUG_ADDRESS** | `string` | Name of the service running locally on balena or address. | `influx`
+**HIVEMQ_SPARKPLUG_BUCKET** | `string` | Bucket's name | `balena`
+**HIVEMQ_SPARKPLUG_DATABASE** | `string` | Database's name | `balena`
+**HIVEMQ_SPARKPLUG_MODE** | `string` | InfluxDB mode | `setup`
+**HIVEMQ_SPARKPLUG_ORGANIZATION** | `string` | Organization's name | `balena`
+**HIVEMQ_SPARKPLUG_PORT** | `string` |  InfluxDB port | `8086`
+**HIVEMQ_SPARKPLUG_TOKEN** | `string` | Token to interact with the Influx via API. It needs to be the same as the variable `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN` | `PB0Pjh4_iou_uNkww4unb-WkGQ-tTe3KoWbUsb4O9rlxOhuj3kgkhD7tH1jXZxzleNob8WzONGbh0tM1SjHQWQ==`
 
 
 ### Configure the bridge extension
@@ -90,38 +102,29 @@ These variables you can set them in the balenaCloud `Device Variables` tab for t
 
 Variable Name | Value | Description | Default
 ------------ | ------------- | ------------- | -------------
-**`HIVEMQ_BRIDGE_EXTENSION`** | `boolean` | Enable bridge extension and delete the `DISABLED` file on the bridge-extension folder | `false`
-**`HIVEMQ_HOST_URL`** | `STRING` | URL of the Host connected via the Bridge Extension. | ```HIVEMQ_HOST_URL```
-**`HIVEMQ_HOST_PORT`** | `STRING` | Port of the host connected via the Bridge Extension. | ```HIVEMQ_HOST_PORT```
-**`HIVEMQ_HOST_USERNAME`** | `STRING` | Username of the MQTT simple authentication to connect the Bridge Extension. | ```HIVEMQ_HOST_USERNAME```
-**`HIVEMQ_HOST_PASSWORD`** | `STRING` | Password of the MQTT simple authentication to connect the Bridge Extension. | ```HIVEMQ_HOST_PASSWORD```
-**`HIVEMQ_TLS_ENABLED`** | `boolean` | Adds the TLS tags to use the MQTT over TLS through the Bridge Extension. | ```false```
-**`HIVEMQ_TOPICS_CONFIGURATION`** | `STRING (XML)` | Topic tag XML definition on the bridge-extension.xml file. | ```<topics><topic> What it goes here </topic></topics>```
-**`HIVEMQ_LICENSE`** | `STRING` | Your license file cntent in one unique line separated by \| Automatically the system will generate a `license.lic` file with the base64 content from this variable. | 
-**`HIVEMQ_REST_API_ENABLED`** | `boolean` | Enables to change the config.xml file with the `rest-api` tag. | `false`
-**`HIVEMQ_REST_API_CONFIGURATION`** | `STRING (XML)` | REST API tag XML definition on the config.xml file. | ```<rest-api><enabled>true</enabled><listeners><http><port>8888</port><bind-address>0.0.0.0</bind-address></http></listeners></rest-api>```
-**`HIVEMQ_INFUXDB_ADDRESS`** | `STRING` | URL of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_ADDRESS```
-**`HIVEMQ_INFUXDB_PORT`** | `STRING` | Port of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_PORT```
-**`HIVEMQ_INFUXDB_DATABASE`** | `STRING` | Name of the database of the InfluxDB local database. | ```HIVEMQ_INFLUXDB_DATABASE```
+**HIVEMQ_BRIDGE_EXTENSION** | `boolean` | Enable bridge extension and delete the `DISABLED` file on the bridge-extension folder | `false`
+**HIVEMQ_HOST_URL** | `STRING` | URL of the Host connected via the Bridge Extension. | ```HIVEMQ_HOST_URL```
+**HIVEMQ_HOST_PORT** | `STRING` | Port of the host connected via the Bridge Extension. | ```HIVEMQ_HOST_PORT```
+**HIVEMQ_HOST_USERNAME** | `STRING` | Username of the MQTT simple authentication to connect the Bridge Extension. | ```HIVEMQ_HOST_USERNAME```
+**HIVEMQ_HOST_PASSWORD** | `STRING` | Password of the MQTT simple authentication to connect the Bridge Extension. | ```HIVEMQ_HOST_PASSWORD```
+**HIVEMQ_TLS_ENABLED** | `boolean` | Adds the TLS tags to use the MQTT over TLS through the Bridge Extension. | ```false```
+**HIVEMQ_TOPICS_CONFIGURATION** | `STRING (XML)` | Topic tag XML definition on the bridge-extension.xml file. | ```<topics><topic> What it goes here </topic></topics>```
+**HIVEMQ_LICENSE** | `STRING` | Your license file cntent in one unique line separated by \| Automatically the system will generate a `license.lic` file with the base64 content from this variable. | 
+**HIVEMQ_REST_API_ENABLED** | `boolean` | Enables to change the config.xml file with the `rest-api` tag. | `false`
+**HIVEMQ_REST_API_CONFIGURATION** | `STRING (XML)` | REST API tag XML definition on the config.xml file. | ```<rest-api><enabled>true</enabled><listeners><http><port>8888</port><bind-address>0.0.0.0</bind-address></http></listeners></rest-api>```
 
 
 ## Check if everything works as expected
 
 Once the data is stored locally in the local time-series database from the local MQTT broker managed by HiveMQ. We also see that the local HiveMQ MQTT broker is publishing the data to the HiveMQ Cloud Enterprise system. We can test this with the MQTT Explorer or similar tools.
 
+The next steps will be to configure the HiveMQ Cloud Enterprise account in order to use the cloud MQTT broker in order have all the Unified Namespace centralized in the cloud getting bridged data from all the IIoT edge gateways deployed on shop floors.
 
-## Log in to the services
 
-The services are exposed in different ports. On the default configuration they use the default port and credentials to access them. Check the documentation for each of them to know how to change them using variables.
+![Architecture diagram](https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/511f66b7-1df2-47c6-986c-47e5ef5d2ff5)
 
-|Service|Port|Username|Password|
-|:--|---|---|---|
-|HiveMQ|8080 (http)|admin|hivemq|
-|Ignition|9088 (http)|balena|balena|
-|Grafana|3000 (http)|admin|admin|
-|InfluxDB|8086 (http) |balena|balenabalena|
 
-<img width="1187" alt="balena-hiveMQ-influxdb-grafana-architecture" src="https://github.com/mpous/ignition-hivemq4-influxdb-grafana-balena/assets/173156/511f66b7-1df2-47c6-986c-47e5ef5d2ff5">
+Once you receive properly data on the HiveMQ Cloud enterprise free account, you can deploy Ignition Enterprise on another balena device in order to visualize the data from multiple gateways centralized on a unique SCADA. Read [how to deploy Ignition on balena here](https://github.com/mpous/ignition-balena).
 
 
 ## Attribution
